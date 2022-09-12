@@ -1,0 +1,103 @@
+:root {
+  --dark-blue: #030720;
+  --lighter-blue: #2F3F58;
+  --dull-green: #BBD5BA;
+  --orange: #F7873F;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: var(--lighter-blue);
+}
+
+.header {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  margin: 75px 0;
+  background-color: var(--orange);
+}
+
+.header > button {
+  position: absolute;
+  left: 10px;
+  height: 30px;
+  width: fit-content;
+  padding: 0px 5px;
+  background-color: var(--orange);
+  border: 1px solid var(--dark-blue);
+  border-radius: 3px;
+}
+
+.header > ul {
+  display: flex;
+  list-style-type: none;
+  font-size: 2rem;
+}
+
+.header li {
+  padding: 5px 30px;
+  color: var(--dark-blue);
+}
+
+.nav:hover:not(.current-page) {
+  background-color: var(--dark-blue);
+  color: var(--orange);
+  cursor: grab;
+}
+
+.current-page {
+  background-color: var(--lighter-blue);
+  color: var(--orange)
+}
+
+.wrapper {
+  background-color: var(--dull-green);
+  margin: 0 auto;
+  display: grid;
+  grid-template: repeat(3, 350px) / repeat(auto-fit, 500px);
+  grid-auto-rows: 350px;
+  gap: 20px;
+  justify-content: center;
+  height: fit-content;
+  width: 1100px;
+  padding: 20px 0px;
+}
+
+.wrapper > div {
+  border: 1px solid var(--dark-blue);
+  border-radius: 3px;
+  padding: 10px;
+}
+
+.wrapper .img-holder {
+  float: left;
+  height: 250px;
+  width: 300px;
+  margin: 8px 8px 8px 0px;
+  background-image: url(./images/header-bg.jpg);
+  background-size: cover;
+}
+
+.wrapper p {
+  color: var(--dark-blue);
+}
+
+.wrapper > div > p:nth-of-type(2n),
+.wrapper > div > p:first-of-type {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.wrapper > div > p:nth-of-type(2n) {
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+

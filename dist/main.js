@@ -1,0 +1,1 @@
+document.getElementById("title").addEventListener("click",(()=>{const e=document.getElementById("wrapper");div=document.createElement("div"),div.innerText="This is generated",e.appendChild(div)}));
