@@ -1,9 +1,20 @@
+import { initialPageLoad } from "./initialPageLoad";
+import { displayHomePage } from "./home";
+import { displayMenuPage } from "./menu";
+
+initialPageLoad();
+
+const home = document.getElementById('home');
+const menu = document.getElementById('menu');
+const about = document.getElementById('about');
 
 
-const btn = document.getElementById('title');
-btn.addEventListener('click', () => {
-  const wrapper = document.getElementById('wrapper');
-  div = document.createElement('div');
-  div.innerText = "This is generated";
-  wrapper.appendChild(div);
+if(!document.getElementById('home').classList.contains('current-page')){
+  home.addEventListener('click', () => {
+    displayHomePage();
+  });
+  
+}
+menu.addEventListener('click', () => {
+  displayMenuPage();
 });
