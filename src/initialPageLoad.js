@@ -7,7 +7,7 @@ const initialPageLoad = () => {
   const navbar = document.createElement('ul');
   const home = document.createElement('li');
   const menu = document.createElement('li');
-  const about = document.createElement('li');
+  const contact = document.createElement('li');
   const wrapper = document.createElement('div');
 
   header.setAttribute('id', 'header');
@@ -16,22 +16,22 @@ const initialPageLoad = () => {
   home.classList.add('nav', 'current-page');
   menu.setAttribute('id', 'menu');
   menu.classList.add('nav');
-  about.setAttribute('id', 'about');
-  about.classList.add('nav');
+  contact.setAttribute('id', 'contact');
+  contact.classList.add('nav');
   wrapper.setAttribute('id', "wrapper");
   wrapper.classList.add('wrapper-home');
 
   home.innerText = "Home";
   menu.innerText = "Menu";
-  about.innerText = "About";
+  contact.innerText = "Contact";
 
 
   content.appendChild(header);
   header.appendChild(navbar);
-  navbar.append(home, menu, about);
-  content.appendChild(wrapper);
+  navbar.append(home, menu, contact);
+  //content.appendChild(wrapper);
 
-  displayHomePage();
+  //displayHomePage();
 }
 
 export {initialPageLoad}

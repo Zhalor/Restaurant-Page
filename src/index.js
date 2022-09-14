@@ -1,20 +1,30 @@
 import { initialPageLoad } from "./initialPageLoad";
 import { displayHomePage } from "./home";
 import { displayMenuPage } from "./menu";
+import { displayContactPage } from "./contact";
 
-initialPageLoad();
+//initialPageLoad();
 
 const home = document.getElementById('home');
 const menu = document.getElementById('menu');
-const about = document.getElementById('about');
+const contact = document.getElementById('contact');
 
 
-if(!document.getElementById('home').classList.contains('current-page')){
-  home.addEventListener('click', () => {
+home.addEventListener('click', () => {
+  if(home.classList.contains('current-page') === false) {
     displayHomePage();
-  });
-  
-}
+  }
+});
+
 menu.addEventListener('click', () => {
-  displayMenuPage();
+  if(menu.classList.contains('current-page') === false) {
+    displayMenuPage();
+  }
+});
+
+contact.addEventListener('click', () => {
+  if(contact.classList.contains('current-page') === false) {
+    displayContactPage();
+    console.log("it works bruh");
+  }
 });
