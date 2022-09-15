@@ -61,7 +61,6 @@ body {
 
 .current-page {
   background-color: var(--lighter-blue);
-  color: var(--orange)
 }
 
 .wrapper-home {
@@ -100,17 +99,28 @@ body {
 .wrapper-menu {
   background-color: var(--dull-green);
   margin: 0px auto 40px auto;
-  display: grid;
-  grid-template: repeat(2, 125px) / repeat(auto-fit, 500px);
-  grid-auto-rows: 150px;
-  gap: 20px;
+  display: flex;
+  flex-flow: column;
   justify-content: center;
   height: fit-content;
   width: 1100px;
-  padding: 20px 0px;
+  padding: 0px 20px 20px 20px;
 }
 
-.wrapper-menu > .menu-item {
+.wrapper-menu > p {
+  margin: 20px 0px 10px 0px;
+}
+
+.wrapper-menu .noodles,
+.wrapper-menu .appitizers,
+.wrapper-menu .drinks {
+  display: grid;
+  grid-template: repeat(1, 125px) / repeat(auto-fit, 500px);
+  grid-auto-rows: 125px;
+  gap: 15px;
+}
+
+.wrapper-menu .menu-item {
   border: 1px solid var(--dark-blue);
   border-radius: 3px;
   padding: 15px;
@@ -120,13 +130,13 @@ body {
   color: var(--dark-blue);
 }
 
-.wrapper-menu > div > p:first-of-type {
+.wrapper-menu > div > div > p:first-of-type {
   font-weight: bold;
   font-size: 1.2rem;
   font-family: Japanese;
 }
 
-.wrapper-menu > div > p:last-of-type {
+.wrapper-menu > div > div > p:last-of-type {
   margin-top: 4px;
   margin-bottom: 4px;
   font-size: .9rem;

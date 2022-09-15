@@ -15,25 +15,78 @@ const displayMenuPage = () => {
   while(wrapper.firstChild !== null) {
     wrapper.removeChild(wrapper.lastChild);
   }
-
-  const divItemContainer = document.createElement('div');
-  const pIItemTitle = document.createElement('p');
-  const divItemImage = document.createElement('div');
-  const pItemDescription = document.createElement('p');
+  const pAppitizers = document.createElement('p');
+  const pNoodles = document.createElement('p');
+  const pDrinks = document.createElement('p');
+  const divAppetizerContainer = document.createElement('div');
+  const divNoodleContainer = document.createElement('div');
+  const divDrinkContainer = document.createElement('div');
   const updateMenuBtn = document.createElement('button');
 
-  divItemContainer.classList.add('menu-item');
-  divItemImage.classList.add('img-holder');
+  divAppetizerContainer.setAttribute('id', 'appitizers')
+  divAppetizerContainer.classList.add('appitizers');
+  divNoodleContainer.setAttribute('id', 'noodles');
+  divNoodleContainer.classList.add('noodles');
+  divDrinkContainer.setAttribute('id', 'drinks');
+  divDrinkContainer.classList.add('drinks');
 
-  let butt = "butt";
-
-  pIItemTitle.innerText = "Noodles...............$10";
-  pItemDescription.innerText = "Delicious noodles that make you feel like you're at moms house."
+  pAppitizers.innerText = "Appitizers";
+  pNoodles.innerText = "Noodles";
+  pDrinks.innerText = "Drinks";
   updateMenuBtn.innerText = "Update Menu";
 
   header.appendChild(updateMenuBtn);
-  wrapper.appendChild(divItemContainer);
-  divItemContainer.append(pIItemTitle, divItemImage, pItemDescription);
+  wrapper.append(pAppitizers, divAppetizerContainer, pNoodles, divNoodleContainer, pDrinks,
+    divDrinkContainer);
+
+  CreateAppitizerItem();
+  CreateAppitizerItem();
+  CreateNoodleItem();
+  CreateNoodleItem();
+  CreateNoodleItem();
+  CreateDrinkItem();
 }
 
+const CreateAppitizerItem = () => {
+  const divItemContainer = document.createElement('div');
+  const pIItemTitle = document.createElement('p');
+  const pItemDescription = document.createElement('p');
+
+  divItemContainer.classList.add('menu-item');
+
+  pIItemTitle.innerText = "Dumplings...............$6";
+  pItemDescription.innerText = "Delicious noodles that make you feel like you're at moms house."
+
+  document.getElementById('appitizers').appendChild(divItemContainer);
+  divItemContainer.append(pIItemTitle, pItemDescription);
+}
+
+const CreateNoodleItem = () => {
+  const divItemContainer = document.createElement('div');
+  const pIItemTitle = document.createElement('p');
+  const pItemDescription = document.createElement('p');
+
+  divItemContainer.classList.add('menu-item');
+
+  pIItemTitle.innerText = "Noodles...............$10";
+  pItemDescription.innerText = "Delicious noodles that make you feel like you're at moms house."
+
+  document.getElementById('noodles').appendChild(divItemContainer);
+  divItemContainer.append(pIItemTitle, pItemDescription);
+}
+
+const CreateDrinkItem = () => {
+  const divItemContainer = document.createElement('div');
+  const pIItemTitle = document.createElement('p');
+  const pItemDescription = document.createElement('p');
+
+  divItemContainer.classList.add('menu-item');
+
+  pIItemTitle.innerText = "Chai Tea...............$3";
+  pItemDescription.innerText = "Delicious noodles that make you feel like you're at moms house."
+
+  document.getElementById('drinks').appendChild(divItemContainer);
+  divItemContainer.append(pIItemTitle, pItemDescription);
+}
 export {displayMenuPage}
+
