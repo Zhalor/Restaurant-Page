@@ -29,9 +29,9 @@ const initialPageLoad = () => {
   content.appendChild(header);
   header.appendChild(navbar);
   navbar.append(home, menu, contact);
-  //content.appendChild(wrapper);
+  content.appendChild(wrapper);
 
-  //displayHomePage();
+  displayHomePage();
 }
 
 export {initialPageLoad}

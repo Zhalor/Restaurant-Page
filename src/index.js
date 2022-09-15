@@ -3,7 +3,7 @@ import { displayHomePage } from "./home";
 import { displayMenuPage } from "./menu";
 import { displayContactPage } from "./contact";
 
-//initialPageLoad();
+initialPageLoad();
 
 const home = document.getElementById('home');
 const menu = document.getElementById('menu');
@@ -25,6 +25,5 @@ menu.addEventListener('click', () => {
 contact.addEventListener('click', () => {
   if(contact.classList.contains('current-page') === false) {
     displayContactPage();
-    console.log("it works bruh");
   }
 });

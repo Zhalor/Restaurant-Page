@@ -101,8 +101,8 @@ body {
   background-color: var(--dull-green);
   margin: 0px auto 40px auto;
   display: grid;
-  grid-template: repeat(2, 350px) / repeat(auto-fit, 500px);
-  grid-auto-rows: 350px;
+  grid-template: repeat(2, 125px) / repeat(auto-fit, 500px);
+  grid-auto-rows: 150px;
   gap: 20px;
   justify-content: center;
   height: fit-content;
@@ -113,31 +113,23 @@ body {
 .wrapper-menu > .menu-item {
   border: 1px solid var(--dark-blue);
   border-radius: 3px;
-  padding: 10px;
-}
-
-.wrapper-menu .img-holder {
-  float: left;
-  height: 250px;
-  width: 300px;
-  margin: 8px 8px 8px 0px;
-  background-image: url(./images/header-bg.jpg);
-  background-size: cover;
+  padding: 15px;
 }
 
 .wrapper-menu p {
   color: var(--dark-blue);
 }
 
-.wrapper-menu > div > p:nth-of-type(2n),
 .wrapper-menu > div > p:first-of-type {
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  font-family: Japanese;
 }
 
-.wrapper-menu > div > p:nth-of-type(2n) {
-  margin-top: 8px;
+.wrapper-menu > div > p:last-of-type {
+  margin-top: 4px;
   margin-bottom: 4px;
+  font-size: .9rem;
 }
 
 .wrapper-contact {
@@ -191,4 +183,8 @@ body {
 .wrapper-contact input {
   height: 30px;
   outline: none;
+}
+
+.wrapper-contact li {
+  margin-top: 10px;
 }

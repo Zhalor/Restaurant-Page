@@ -13,8 +13,8 @@ const displayHomePage = () => {
   home.classList.add('current-page');
   contact.classList.remove('current-page');
   menu.classList.remove('current-page');
+  wrapper.removeAttribute('class');
   wrapper.classList.add('wrapper-home');
-  wrapper.classList.remove('wrapper-menu')
   divImage.classList.add('img-holder');
 
   while(wrapper.firstChild !== null) {
