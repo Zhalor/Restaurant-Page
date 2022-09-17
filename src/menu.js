@@ -1,14 +1,11 @@
-const arrAppitizers = [{title: "Dumplings", price: "6", desc: "Tasty Dumplings."},
-                       {title: "Fried Rice", price: "3", desc: "Tasty Fried Rice."}];
-const arrNoodles = [{title: "Soba Noodles", price: "9", desc: "Tasty Soba."},
-                    {title: "Ramen Noodles", price: "9", desc: "Tasty Ramen."}];
-const arrDrinks = [{title: "Sake", price: "5", desc: "Tasty Sake."}]
-
+const arrAppitizers = [];
+const arrNoodles = [];
+const arrDrinks = [];
 let update = false;
 
 class MenuItem {
   constructor(title, price, description) {
-    this.name = title;
+    this.title = title;
     this.price = price;
     this.description = description;
   }
@@ -25,6 +22,9 @@ class Appitizer extends MenuItem {
     arrAppitizers.splice(arrAppitizers.indexOf(this), 1);
     console.log(arrAppitizers);
   }
+  editAppitizer() {
+    console.log(this);
+  }
 }
 
 class Noodle extends MenuItem {
@@ -38,6 +38,9 @@ class Noodle extends MenuItem {
     arrNoodles.splice(arrNoodles.indexOf(this), 1);
     console.log(arrNoodles);
   }
+  editNoodle() {
+    console.log(this);
+  }
 }
 
 class Drink extends MenuItem {
@@ -50,6 +53,9 @@ class Drink extends MenuItem {
   removeDrink() {
     arrDrinks.splice(arrDrinks.indexOf(this), 1);
     console.log(arrDrinks);
+  }
+  editDrink() {
+    console.log(this);
   }
 }
 
@@ -95,39 +101,57 @@ const displayMenuPage = () => {
   updateMenuBtn.innerText = "Update Menu";
 
   updateMenuBtn.addEventListener('click', () => {
-    if(update === false){
-      createAddItemBtn();
-      createEditBtn();
-      update = true;
-      updateMenuBtn.innerText = "Complete Update";
-    }
+    showBtns(updateMenuBtn);
   });
 
   header.appendChild(updateMenuBtn);
   wrapper.append(h2Appitizers, divAppetizerContainer, h2Noodles, divNoodleContainer, h2Drinks,
     divDrinkContainer);
 
-  arrAppitizers.forEach(item => {
-    createAppitizer(item.title, item.price, item.desc);
-  });
+  createAddItemBtn();
+  createAndAddApp("Dumplings", 6, "Tasty Dumplings");
+  createAndAddApp("Fried Rice", 3, "Tasty Fried Rice");
+  createAndAddNoodle("Soba Noodles", 9, "Tasty Soba");
+  createAndAddNoodle("Ramen Noodles", 9, "Tasty Ramen");
+  createAndAddDrink("Sake", 5, "Booze");
 
-  arrNoodles.forEach(item => {
-    createNoodle(item.title, item.price, item.desc);
-  });
-
-  arrDrinks.forEach(item => {
-    createDrink(item.title, item.price, item.desc);
+  document.querySelectorAll(".edit-delete-btn").forEach(item => {
+    item.style.display = "none";
   });
 }
 
+const showBtns = (updateBtn) => {
+  if(updateBtn.innerText === "Update Menu") {
+    updateBtn.innerText = "Complete Update";
+    const editDeleteBtns = document.querySelectorAll(".edit-delete-btn");
+    const addBtns = document.querySelectorAll(".add-item-btn");
+    editDeleteBtns.forEach(item => {
+      item.style.display = "inline";
+    });
+    addBtns.forEach(item => {
+      item.style.display = "inline";
+    });
+    update = true;
+  } else {
+    updateBtn.innerText = "Update Menu";
+    const editDeleteBtns = document.querySelectorAll(".edit-delete-btn");
+    const addBtns = document.querySelectorAll(".add-item-btn");
+    editDeleteBtns.forEach(item => {
+      item.style.display = "none";
+    });
+    addBtns.forEach(item => {
+      item.style.display = "none";
+    });
+    update = false;
+  }
+}
+
 const createAddItemBtn = () => {
-  if(document.getElementById('add-appitizer-btn') === null &&
-  document.getElementById('add-noodle-btn') === null &&
-  document.getElementById('add-drink-btn') === null){
     const addAppitizerBtn = document.createElement('button');
     addAppitizerBtn.classList.add('add-item-btn');
     addAppitizerBtn.setAttribute('id', 'add-appitizer-btn');
     addAppitizerBtn.innerText = "Add Item";
+    addAppitizerBtn.style.display = "none";
     addAppitizerBtn.addEventListener('click', () => {
       appitizerForm();
     });
@@ -136,6 +160,7 @@ const createAddItemBtn = () => {
     addNoodleBtn.classList.add('add-item-btn');
     addNoodleBtn.setAttribute('id', 'add-noodle-btn');
     addNoodleBtn.innerText = "Add Item";
+    addNoodleBtn.style.display = "none";
     addNoodleBtn.addEventListener('click', () => {
       noodleForm();
     });
@@ -144,6 +169,7 @@ const createAddItemBtn = () => {
     addDrinkBtn.classList.add('add-item-btn');
     addDrinkBtn.setAttribute('id', 'add-drink-btn');
     addDrinkBtn.innerText = "Add Item";
+    addDrinkBtn.style.display = "none";
     addDrinkBtn.addEventListener('click', () => {
       drinkForm();
     });
@@ -154,22 +180,7 @@ const createAddItemBtn = () => {
       item.appendChild(arr[counter]);
       counter++;
     });
-  }
-}
-
-const createEditBtn = () => {
-  if(document.getElementsByClassName('edit-delete-btn').length === 0){
-    const menuItems = document.querySelectorAll('.menu-item');
-    menuItems.forEach(item => {
-      const editBtn = document.createElement('button');
-      const deleteBtn = document.createElement('button');
-      editBtn.classList.add('edit-delete-btn');
-      deleteBtn.classList.add('edit-delete-btn');
-      editBtn.innerText = "Edit";
-      deleteBtn.innerText = "Delete";
-      item.append(editBtn, deleteBtn);
-  });
-  }
+  
 }
 
 const appitizerForm = () => {
@@ -197,30 +208,41 @@ const appitizerForm = () => {
 const createAndAddApp = (title, price, desc) => {
   const newAppitizer = new Appitizer(title, price, desc);
   newAppitizer.addAppitizer(newAppitizer);
-  createAppitizer(title, price, desc);
+  let index = arrAppitizers.length - 1;
+  createAppitizer(title, price, desc, index);
 }
 
-const createAppitizer = (title, price, desc) => {
+const createAppitizer = (title, price, desc, index) => {
   const divItemContainer = document.createElement('div');
   const pItemTitle = document.createElement('p');
   const pItemDescription = document.createElement('p');
 
   divItemContainer.classList.add('menu-item');
+  divItemContainer.setAttribute('data-appitizer-item-number', index);
 
   pItemTitle.innerText = `${title}...............$${price}`;
   pItemDescription.innerText = desc;
 
   document.getElementById('appitizers').appendChild(divItemContainer);
   divItemContainer.append(pItemTitle, pItemDescription);
-  if(update === true) {
-    const editBtn = document.createElement('button');
-    const deleteBtn = document.createElement('button');
-    editBtn.classList.add('edit-delete-btn');
-    deleteBtn.classList.add('edit-delete-btn');
-    editBtn.innerText = "Edit";
-    deleteBtn.innerText = "Delete";
-    divItemContainer.append(editBtn, deleteBtn);
+  const editBtn = document.createElement('button');
+  const deleteBtn = document.createElement('button');
+  editBtn.classList.add('edit-delete-btn');
+  deleteBtn.classList.add('edit-delete-btn');
+  editBtn.innerText = "Edit";
+  deleteBtn.innerText = "Delete";
+  if(update === false) {
+    editBtn.style.display = "none";
+    deleteBtn.style.display = "none";
+  } else {
+    editBtn.style.display = "inline";
+  deleteBtn.style.display = "inline";
   }
+  editBtn.addEventListener('click', () => {
+    arrAppitizers[index].editAppitizer();
+
+  });
+  divItemContainer.append(editBtn, deleteBtn);
 
   console.log(arrAppitizers);
 }
@@ -250,21 +272,44 @@ const noodleForm = () => {
 const createAndAddNoodle = (title, price, desc) => {
   const newNoodle = new Noodle(title, price, desc);
   newNoodle.addNoodle(newNoodle);
-  createNoodle(title, price, desc);
+  let index = arrNoodles.length - 1;
+  createNoodle(title, price, desc, index);
 }
 
-const createNoodle = (title, price, desc) => {
+const createNoodle = (title, price, desc, index) => {
   const divItemContainer = document.createElement('div');
   const pItemTitle = document.createElement('p');
   const pItemDescription = document.createElement('p');
 
   divItemContainer.classList.add('menu-item');
+  divItemContainer.setAttribute('data-noodle-item-number', index);
 
   pItemTitle.innerText = `${title}...............$${price}`;
   pItemDescription.innerText = desc;
 
   document.getElementById('noodles').appendChild(divItemContainer);
   divItemContainer.append(pItemTitle, pItemDescription);
+
+  const editBtn = document.createElement('button');
+  const deleteBtn = document.createElement('button');
+  editBtn.classList.add('edit-delete-btn');
+  deleteBtn.classList.add('edit-delete-btn');
+  editBtn.innerText = "Edit";
+  deleteBtn.innerText = "Delete";
+  console.log(update);
+  if(update === false) {
+    editBtn.style.display = "none";
+    deleteBtn.style.display = "none";
+  } else {
+    editBtn.style.display = "inline";
+    deleteBtn.style.display = "inline";
+  }
+  editBtn.addEventListener('click', () => {
+    console.log(arrNoodles[index]);
+    
+
+  });
+  divItemContainer.append(editBtn, deleteBtn);
 
   console.log(arrNoodles);
 }
@@ -294,21 +339,42 @@ const drinkForm = () => {
 const createAndAddDrink = (title, price, desc) => {
   const newDrink = new Drink(title, price, desc);
   newDrink.addDrink(newDrink);
-  createDrink(title, price, desc);
+  let index = arrDrinks.length - 1;
+  createDrink(title, price, desc, index);
 }
 
-const createDrink = (title, price, desc) => {
+const createDrink = (title, price, desc, index) => {
   const divItemContainer = document.createElement('div');
   const pItemTitle = document.createElement('p');
   const pItemDescription = document.createElement('p');
 
   divItemContainer.classList.add('menu-item');
+  divItemContainer.setAttribute('data-drink-item-number', index);
 
   pItemTitle.innerText = `${title}...............$${price}`;
   pItemDescription.innerText = desc;
 
   document.getElementById('drinks').appendChild(divItemContainer);
   divItemContainer.append(pItemTitle, pItemDescription);
+
+  const editBtn = document.createElement('button');
+  const deleteBtn = document.createElement('button');
+  editBtn.classList.add('edit-delete-btn');
+  deleteBtn.classList.add('edit-delete-btn');
+  editBtn.innerText = "Edit";
+  deleteBtn.innerText = "Delete";
+  if(update === false) {
+    editBtn.style.display = "none";
+    deleteBtn.style.display = "none";
+  } else {
+    editBtn.style.display = "inline";
+    deleteBtn.style.display = "inline";
+  }
+  editBtn.addEventListener('click', () => {
+    arrDrinks[index].editDrink();
+
+  });
+  divItemContainer.append(editBtn, deleteBtn);
 
   console.log(arrDrinks);
 }
