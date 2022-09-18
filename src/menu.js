@@ -13,49 +13,49 @@ class MenuItem {
 
 class Appitizer extends MenuItem {
   addAppitizer(appitizer) {
-    console.log(appitizer);
     arrAppitizers.push(appitizer);
-    console.log(arrAppitizers);
-    console.log(arrAppitizers.indexOf(this));
   }
-  removeAppitizer() {
+  removeAppitizer(container) {
     arrAppitizers.splice(arrAppitizers.indexOf(this), 1);
-    console.log(arrAppitizers);
+    container.remove();
+    const appitizers = document.querySelectorAll('[data-appitizer-item-number]');
+    for(let i = 0; i < appitizers.length; i++) {
+      appitizers[i].setAttribute('data-appitizer-item-number', i);
+    }
   }
   editAppitizer() {
-    console.log(this);
   }
 }
 
 class Noodle extends MenuItem {
   addNoodle(noodle) {
-    console.log(noodle);
     arrNoodles.push(noodle);
-    console.log(arrNoodles);
-    console.log(arrNoodles.indexOf(this));
   }
-  removeNoodle() {
+  removeNoodle(container) {
     arrNoodles.splice(arrNoodles.indexOf(this), 1);
-    console.log(arrNoodles);
+    container.remove();
+    const noodles = document.querySelectorAll('[data-noodle-item-number]');
+    for(let i = 0; i < noodles.length; i++) {
+      noodles[i].setAttribute('data-noodle-item-number', i);
+    }
   }
   editNoodle() {
-    console.log(this);
   }
 }
 
 class Drink extends MenuItem {
   addDrink(drink) {
-    console.log(drink);
     arrDrinks.push(drink);
-    console.log(arrDrinks);
-    console.log(arrDrinks.indexOf(this));
   }
-  removeDrink() {
+  removeDrink(container) {
     arrDrinks.splice(arrDrinks.indexOf(this), 1);
-    console.log(arrDrinks);
+    container.remove();
+    const drinks = document.querySelectorAll('[data-drink-item-number]');
+    for(let i = 0; i < drinks.length; i++) {
+      drinks[i].setAttribute('data-drink-item-number', i);
+    }
   }
   editDrink() {
-    console.log(this);
   }
 }
 
@@ -109,11 +109,30 @@ const displayMenuPage = () => {
     divDrinkContainer);
 
   createAddItemBtn();
-  createAndAddApp("Dumplings", 6, "Tasty Dumplings");
-  createAndAddApp("Fried Rice", 3, "Tasty Fried Rice");
-  createAndAddNoodle("Soba Noodles", 9, "Tasty Soba");
-  createAndAddNoodle("Ramen Noodles", 9, "Tasty Ramen");
-  createAndAddDrink("Sake", 5, "Booze");
+  
+  if(arrAppitizers.length === 0) {
+    createAndAddApp("Dumplings", 6, "Tasty Dumplings");
+    createAndAddApp("Fried Rice", 3, "Tasty Fried Rice");
+  } else {
+    arrAppitizers.forEach(item => {
+      createAppitizer(item.title, item.price, item.description, arrAppitizers.indexOf(item));
+    });
+  }
+  if(arrNoodles.length === 0) {
+    createAndAddNoodle("Soba Noodles", 9, "Tasty Soba");
+    createAndAddNoodle("Ramen Noodles", 9, "Tasty Ramen");
+  } else {
+    arrNoodles.forEach(item => {
+      createNoodle(item.title, item.price, item.description, arrNoodles.indexOf(item));
+    });
+  }
+  if(arrDrinks.length === 0) {
+    createAndAddDrink("Sake", 5, "Booze");
+  } else {
+    arrDrinks.forEach(item => {
+      createDrink(item.title, item.price, item.description, arrDrinks.indexOf(item));
+    });
+  }
 
   document.querySelectorAll(".edit-delete-btn").forEach(item => {
     item.style.display = "none";
@@ -231,6 +250,7 @@ const createAppitizer = (title, price, desc, index) => {
   deleteBtn.classList.add('edit-delete-btn');
   editBtn.innerText = "Edit";
   deleteBtn.innerText = "Delete";
+
   if(update === false) {
     editBtn.style.display = "none";
     deleteBtn.style.display = "none";
@@ -238,13 +258,16 @@ const createAppitizer = (title, price, desc, index) => {
     editBtn.style.display = "inline";
   deleteBtn.style.display = "inline";
   }
+
   editBtn.addEventListener('click', () => {
     arrAppitizers[index].editAppitizer();
-
   });
-  divItemContainer.append(editBtn, deleteBtn);
 
-  console.log(arrAppitizers);
+  deleteBtn.addEventListener('click', () => {
+    arrAppitizers[divItemContainer.dataset.appitizerItemNumber].removeAppitizer(divItemContainer);
+  });
+
+  divItemContainer.append(editBtn, deleteBtn);
 }
 
 const noodleForm = () => {
@@ -296,7 +319,7 @@ const createNoodle = (title, price, desc, index) => {
   deleteBtn.classList.add('edit-delete-btn');
   editBtn.innerText = "Edit";
   deleteBtn.innerText = "Delete";
-  console.log(update);
+
   if(update === false) {
     editBtn.style.display = "none";
     deleteBtn.style.display = "none";
@@ -304,14 +327,16 @@ const createNoodle = (title, price, desc, index) => {
     editBtn.style.display = "inline";
     deleteBtn.style.display = "inline";
   }
+
   editBtn.addEventListener('click', () => {
-    console.log(arrNoodles[index]);
     
-
   });
-  divItemContainer.append(editBtn, deleteBtn);
 
-  console.log(arrNoodles);
+  deleteBtn.addEventListener('click', () => {
+    arrNoodles[divItemContainer.dataset.noodleItemNumber].removeNoodle(divItemContainer);
+  });
+
+  divItemContainer.append(editBtn, deleteBtn);
 }
 
 const drinkForm = () => {
@@ -363,6 +388,7 @@ const createDrink = (title, price, desc, index) => {
   deleteBtn.classList.add('edit-delete-btn');
   editBtn.innerText = "Edit";
   deleteBtn.innerText = "Delete";
+
   if(update === false) {
     editBtn.style.display = "none";
     deleteBtn.style.display = "none";
@@ -370,13 +396,17 @@ const createDrink = (title, price, desc, index) => {
     editBtn.style.display = "inline";
     deleteBtn.style.display = "inline";
   }
+
   editBtn.addEventListener('click', () => {
     arrDrinks[index].editDrink();
 
   });
-  divItemContainer.append(editBtn, deleteBtn);
+  
+  deleteBtn.addEventListener('click', () => {
+    arrDrinks[divItemContainer.dataset.drinkItemNumber].removeDrink(divItemContainer);
+  });
 
-  console.log(arrDrinks);
+  divItemContainer.append(editBtn, deleteBtn);
 }
 
 export {displayMenuPage}
