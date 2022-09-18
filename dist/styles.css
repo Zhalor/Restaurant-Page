@@ -143,6 +143,7 @@ body {
 }
 
 .edit-delete-btn {
+  display: block;
   width: fit-content;
   height: 22px;
   font-size: .8rem;

@@ -15,6 +15,7 @@ class Appitizer extends MenuItem {
   addAppitizer(appitizer) {
     arrAppitizers.push(appitizer);
   }
+
   removeAppitizer(container) {
     arrAppitizers.splice(arrAppitizers.indexOf(this), 1);
     container.remove();
@@ -23,7 +24,37 @@ class Appitizer extends MenuItem {
       appitizers[i].setAttribute('data-appitizer-item-number', i);
     }
   }
-  editAppitizer() {
+
+  editAppitizer(container) {
+    const inputItemTitle = document.createElement('input');
+    const inputItemDescription = document.createElement('input');
+    const inputItemPrice = document.createElement('input');
+    const updateItemBtn = document.createElement('button');
+    inputItemTitle.type = "text";
+    inputItemPrice.type = "number";
+    inputItemDescription.type = "text";
+    updateItemBtn.innerText = "Update";
+    container.childNodes[0].style.display = "none";
+    container.childNodes[1].style.display = "none";
+    container.childNodes[2].style.display = "none";
+    container.childNodes[3].style.display = "none";
+    container.append(inputItemTitle, inputItemPrice, inputItemDescription, updateItemBtn);
+
+    updateItemBtn.addEventListener('click', () => {
+      container.childNodes[0].style.display = "block";
+      container.childNodes[1].style.display = "block";
+      container.childNodes[2].style.display = "inline";
+      container.childNodes[3].style.display = "inline";
+      this.title = inputItemTitle.value;
+      this.price = inputItemPrice.value;
+      this.description = inputItemDescription.value;
+      container.childNodes[0].innerText = `${this.title}...............$${this.price}`;
+      container.childNodes[1].innerText = this.description;
+      inputItemTitle.remove();
+      inputItemPrice.remove();
+      inputItemDescription.remove();
+      updateItemBtn.remove();
+    });
   }
 }
 
@@ -31,6 +62,7 @@ class Noodle extends MenuItem {
   addNoodle(noodle) {
     arrNoodles.push(noodle);
   }
+
   removeNoodle(container) {
     arrNoodles.splice(arrNoodles.indexOf(this), 1);
     container.remove();
@@ -39,7 +71,9 @@ class Noodle extends MenuItem {
       noodles[i].setAttribute('data-noodle-item-number', i);
     }
   }
+
   editNoodle() {
+
   }
 }
 
@@ -47,6 +81,7 @@ class Drink extends MenuItem {
   addDrink(drink) {
     arrDrinks.push(drink);
   }
+
   removeDrink(container) {
     arrDrinks.splice(arrDrinks.indexOf(this), 1);
     container.remove();
@@ -55,7 +90,9 @@ class Drink extends MenuItem {
       drinks[i].setAttribute('data-drink-item-number', i);
     }
   }
+
   editDrink() {
+
   }
 }
 
@@ -260,7 +297,7 @@ const createAppitizer = (title, price, desc, index) => {
   }
 
   editBtn.addEventListener('click', () => {
-    arrAppitizers[index].editAppitizer();
+    arrAppitizers[divItemContainer.dataset.appitizerItemNumber].editAppitizer(divItemContainer);
   });
 
   deleteBtn.addEventListener('click', () => {
