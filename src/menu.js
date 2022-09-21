@@ -32,19 +32,25 @@ class MenuItem {
     container.append(inputItemTitle, inputItemPrice, inputItemDescription, updateItemBtn);
 
     updateItemBtn.addEventListener('click', () => {
-      container.childNodes[0].style.display = "block";
-      container.childNodes[1].style.display = "block";
-      container.childNodes[2].style.display = "inline";
-      container.childNodes[3].style.display = "inline";
-      this.title = inputItemTitle.value;
-      this.price = inputItemPrice.value;
-      this.description = inputItemDescription.value;
-      container.childNodes[0].innerText = `${this.title}...............$${this.price}`;
-      container.childNodes[1].innerText = this.description;
-      inputItemTitle.remove();
-      inputItemPrice.remove();
-      inputItemDescription.remove();
-      updateItemBtn.remove();
+      container.childNodes[4].classList.remove('error');
+      container.childNodes[5].classList.remove('error');
+      container.childNodes[6].classList.remove('error');
+      let pass = errorCheck(container, 4, 5, 6);
+      if (pass === true) {
+        container.childNodes[0].style.display = "block";
+        container.childNodes[1].style.display = "block";
+        container.childNodes[2].style.display = "inline";
+        container.childNodes[3].style.display = "inline";
+        this.title = inputItemTitle.value;
+        this.price = inputItemPrice.value;
+        this.description = inputItemDescription.value;
+        container.childNodes[0].innerText = `${this.title}...............$${this.price}`;
+        container.childNodes[1].innerText = this.description;
+        inputItemTitle.remove();
+        inputItemPrice.remove();
+        inputItemDescription.remove();
+        updateItemBtn.remove();
+      }
     });
   }
 }
@@ -196,15 +202,7 @@ const showBtns = (updateBtn) => {
     });
     update = true;
   } else {
-    updateBtn.innerText = "Update Menu";
-    const editDeleteBtns = document.querySelectorAll(".edit-delete-btn");
-    const addBtns = document.querySelectorAll(".add-item-btn");
-    editDeleteBtns.forEach(item => {
-      item.style.display = "none";
-    });
-    addBtns.forEach(item => {
-      item.style.display = "none";
-    });
+    displayMenuPage();
     update = false;
   }
 }
@@ -213,7 +211,7 @@ const createAddItemBtn = () => {
     const addAppitizerBtn = document.createElement('button');
     addAppitizerBtn.classList.add('add-item-btn');
     addAppitizerBtn.setAttribute('id', 'add-appitizer-btn');
-    addAppitizerBtn.innerText = "Add Item";
+    addAppitizerBtn.innerText = "Add Appitizer";
     addAppitizerBtn.style.display = "none";
     addAppitizerBtn.addEventListener('click', () => {
       addAppitizerBtn.disabled = true;
@@ -223,7 +221,7 @@ const createAddItemBtn = () => {
     const addNoodleBtn = document.createElement('button');
     addNoodleBtn.classList.add('add-item-btn');
     addNoodleBtn.setAttribute('id', 'add-noodle-btn');
-    addNoodleBtn.innerText = "Add Item";
+    addNoodleBtn.innerText = "Add Noodle";
     addNoodleBtn.style.display = "none";
     addNoodleBtn.addEventListener('click', () => {
       addNoodleBtn.disabled = true;
@@ -233,7 +231,7 @@ const createAddItemBtn = () => {
     const addDrinkBtn = document.createElement('button');
     addDrinkBtn.classList.add('add-item-btn');
     addDrinkBtn.setAttribute('id', 'add-drink-btn');
-    addDrinkBtn.innerText = "Add Item";
+    addDrinkBtn.innerText = "Add Drink";
     addDrinkBtn.style.display = "none";
     addDrinkBtn.addEventListener('click', () => {
       addDrinkBtn.disabled = true;
@@ -249,30 +247,71 @@ const createAddItemBtn = () => {
   
 }
 
+const errorCheck = (container, node1, node2, node3) => {
+  let counter = 0;
+  if(container.childNodes[node1].value == "") {
+    container.childNodes[node1].placeholder = "Enter a title";
+    container.childNodes[node1].classList.add('error');
+    counter++;
+  }
+  if(container.childNodes[node2].value == "") {
+    container.childNodes[node2].placeholder = "Enter a number";
+    container.childNodes[node2].classList.add('error');
+    counter++
+  }
+  if(container.childNodes[node3].value == "") {
+    container.childNodes[node3].placeholder = "Enter a description";
+    container.childNodes[node3].classList.add('error');
+    counter++
+  }
+  if(counter > 0) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 const appitizerForm = () => {
   const divItemContainer = document.createElement('div');
   const inputItemTitle = document.createElement('input');
   const inputItemDescription = document.createElement('textarea');
   const inputItemPrice = document.createElement('input');
   const addItembtn = document.createElement('button');
+  const cancelBtn = document.createElement('button');
   inputItemTitle.type = "text";
+  inputItemTitle.placeholder = "Title"
   inputItemPrice.type = "number";
+  inputItemPrice.placeholder = "Price"
   inputItemDescription.rows = 3;
   inputItemDescription.cols = 43;
   inputItemDescription.style.resize = "none";
+  inputItemDescription.placeholder = "Description of item"
   addItembtn.innerText = "Add";
-  addItembtn.classList.add('form-btn')
+  addItembtn.classList.add('form-btn');
+  cancelBtn.innerText = "Cancel";
+  cancelBtn.classList.add('form-btn');
 
   addItembtn.addEventListener('click', () => {
-    document.getElementById('add-appitizer-btn').disabled = false;
-    createAndAddApp(inputItemTitle.value, inputItemPrice.value, inputItemDescription.value);
-    divItemContainer.remove();
+    inputItemTitle.classList.remove('error');
+    inputItemPrice.classList.remove('error');
+    inputItemDescription.classList.remove('error');
+    let pass = errorCheck(divItemContainer, 0, 1, 2);
+    if(pass === true) {
+      document.getElementById('add-appitizer-btn').disabled = false;
+      createAndAddApp(inputItemTitle.value, inputItemPrice.value, inputItemDescription.value);
+      divItemContainer.remove();
+    }
   });
 
+  cancelBtn.addEventListener('click', () => {
+    document.getElementById('add-appitizer-btn').disabled = false;
+    divItemContainer.remove();
+  });
+  
   divItemContainer.classList.add('menu-item');
 
   document.getElementById('appitizers').appendChild(divItemContainer);
-  divItemContainer.append(inputItemTitle, inputItemPrice, inputItemDescription, addItembtn);
+  divItemContainer.append(inputItemTitle, inputItemPrice, inputItemDescription, addItembtn, cancelBtn);
 }
 
 const createAndAddApp = (title, price, desc) => {
@@ -327,24 +366,41 @@ const noodleForm = () => {
   const inputItemDescription = document.createElement('textarea');
   const inputItemPrice = document.createElement('input');
   const addItembtn = document.createElement('button');
+  const cancelBtn = document.createElement('button');
   inputItemTitle.type = "text";
+  inputItemTitle.placeholder = "Title"
   inputItemPrice.type = "number";
+  inputItemPrice.placeholder = "Price"
   inputItemDescription.rows = 3;
   inputItemDescription.cols = 43;
   inputItemDescription.style.resize = "none";
+  inputItemDescription.placeholder = "Description of item"
   addItembtn.innerText = "Add";
-  addItembtn.classList.add('form-btn')
+  addItembtn.classList.add('form-btn');
+  cancelBtn.innerText = "Cancel";
+  cancelBtn.classList.add('form-btn');
 
   addItembtn.addEventListener('click', () => {
+    inputItemTitle.classList.remove('error');
+    inputItemPrice.classList.remove('error');
+    inputItemDescription.classList.remove('error');
+    let pass = errorCheck(divItemContainer, 0, 1, 2);
+    if(pass === true) {
+      document.getElementById('add-appitizer-btn').disabled = false;
+      createAndAddNoodle(inputItemTitle.value, inputItemPrice.value, inputItemDescription.value);
+      divItemContainer.remove();
+    }
+  });
+
+  cancelBtn.addEventListener('click', () => {
     document.getElementById('add-noodle-btn').disabled = false;
-    createAndAddNoodle(inputItemTitle.value, inputItemPrice.value, inputItemDescription.value);
     divItemContainer.remove();
   });
 
   divItemContainer.classList.add('menu-item');
 
   document.getElementById('noodles').appendChild(divItemContainer);
-  divItemContainer.append(inputItemTitle, inputItemPrice, inputItemDescription, addItembtn);
+  divItemContainer.append(inputItemTitle, inputItemPrice, inputItemDescription, addItembtn, cancelBtn);
 }
 
 const createAndAddNoodle = (title, price, desc) => {
@@ -400,24 +456,41 @@ const drinkForm = () => {
   const inputItemDescription = document.createElement('textarea');
   const inputItemPrice = document.createElement('input');
   const addItembtn = document.createElement('button');
+  const cancelBtn = document.createElement('button');
   inputItemTitle.type = "text";
+  inputItemTitle.placeholder = "Title"
   inputItemPrice.type = "number";
+  inputItemPrice.placeholder = "Price"
   inputItemDescription.rows = 3;
   inputItemDescription.cols = 43;
   inputItemDescription.style.resize = "none";
+  inputItemDescription.placeholder = "Description of item"
   addItembtn.innerText = "Add";
-  addItembtn.classList.add('form-btn')
+  addItembtn.classList.add('form-btn');
+  cancelBtn.innerText = "Add";
+  cancelBtn.classList.add('form-btn');
 
   addItembtn.addEventListener('click', () => {
+    inputItemTitle.classList.remove('error');
+    inputItemPrice.classList.remove('error');
+    inputItemDescription.classList.remove('error');
+    let pass = errorCheck(divItemContainer, 0, 1, 2);
+    if(pass === true) {
+      document.getElementById('add-appitizer-btn').disabled = false;
+      createAndAddDrink(inputItemTitle.value, inputItemPrice.value, inputItemDescription.value);
+      divItemContainer.remove();
+    }
+  });
+
+  cancelBtn.addEventListener('click', () => {
     document.getElementById('add-drink-btn').disabled = false;
-    createAndAddDrink(inputItemTitle.value, inputItemPrice.value, inputItemDescription.value);
     divItemContainer.remove();
   });
 
   divItemContainer.classList.add('menu-item');
 
   document.getElementById('drinks').appendChild(divItemContainer);
-  divItemContainer.append(inputItemTitle, inputItemPrice, inputItemDescription, addItembtn);
+  divItemContainer.append(inputItemTitle, inputItemPrice, inputItemDescription, addItembtn, cancelBtn);
 }
 
 const createAndAddDrink = (title, price, desc) => {
