@@ -21,12 +21,16 @@ body {
   background-color: var(--lighter-blue);
 }
 
+button:active {
+  transform: scale(0.98);
+}
+
 .header {
   display: flex;
   position: relative;
   justify-content: center;
   align-items: center;
-  margin: 75px 0;
+  margin: 50px 0;
   background-color: var(--orange);
 }
 
@@ -68,10 +72,11 @@ body {
   display: flex;
   flex-flow: column;
   align-items: center;
-  margin: 0 auto;
-  width: 56%;
-  height: 700px;
-  padding: 50px 100px;
+  margin: 0 auto 40px auto;
+  width: max(800px, 56%);
+  height: 750px;
+  padding: 30px 60px;
+  box-shadow: 0px 0px 3px 0px var(--dull-green);
 }
 
 .wrapper-home > p {
@@ -84,13 +89,15 @@ body {
 
 .wrapper-home > div > p {
   color: var(--dark-blue);
-  font-size: 1.4rem;
+  font-size: 1.6rem;
+  line-height: 1.3;
+  margin-bottom: 20px;
 }
 
 .wrapper-home .img-holder {
   float: left;
-  height: 525px;
-  width: 325px;
+  height: 625px;
+  width: 450px;
   margin-right: 16px;
   background-image: url(./images/home-image.jpg);
   background-size: cover;
@@ -105,10 +112,11 @@ body {
   height: fit-content;
   width: max(56%, 550px);
   padding: 0px 50px 50px 50px;
+  box-shadow: 0px 0px 3px 0px var(--dull-green);
 }
 
 .menu-header {
-  margin: 50px 0px 10px 0px;
+  margin: 30px 0px 10px 0px;
   color: var(--dark-blue);
   font-family: Japanese;
   position: relative;
@@ -118,7 +126,7 @@ body {
 .wrapper-menu .appitizers,
 .wrapper-menu .drinks {
   display: grid;
-  grid-template: repeat(1, 125px) / repeat(auto-fit, 450px);
+  grid-template: 125px / repeat(auto-fit, 450px);
   justify-content: space-between;
   grid-auto-rows: 125px;
   gap: 15px;
@@ -201,9 +209,10 @@ body {
   flex-flow: column;
   align-items: center;
   margin: 0 auto;
-  width: 56%;
+  width: max(550px, 56%);
   height: 700px;
   padding: 50px 100px;
+  box-shadow: 0px 0px 3px 0px var(--dull-green);
 }
 
 .wrapper-contact * {

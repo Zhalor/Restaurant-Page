@@ -8,7 +8,8 @@ const displayHomePage = () => {
   const pTitle = document.createElement('p');
   const divContainer = document.createElement('div');
   const divImage = document.createElement('div');
-  const pcontact = document.createElement('p');
+  const para1 = document.createElement('p');
+  const para2 = document.createElement('p');
 
   home.classList.add('current-page');
   contact.classList.remove('current-page');
@@ -26,12 +27,13 @@ const displayHomePage = () => {
   }
 
   pTitle.innerText = "Nagisa's Noodle Bar";
-  pcontact.innerText = "This is a whole lot of test text to try some things out.\
-  I'm not sure what to say here, but just imagine it's\
-  something amazing and worth reading. Not this gibberish you're reading now.";
+  para1.innerText = "Nagisa’s Noodle Bar brings an authentic Japanese dining experience without \
+  having to travel abroad. Enjoy a wide selection of noodles including Ramen, Udon, and Soba. \
+  Try our imported Japanese beers or a glass of Sake.";
+  para2.innerText = "Come join us for a bowl and get a taste of Japanese culture that we're sure you'll love!";
 
   wrapper.append(pTitle, divContainer);
-  divContainer.append(divImage, pcontact);
+  divContainer.append(divImage, para1, para2);
 
 }
 

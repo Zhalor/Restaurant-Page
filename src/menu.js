@@ -101,6 +101,9 @@ class Drink extends MenuItem {
 }
 
 const displayMenuPage = () => {
+  if(document.getElementById('update-menu') !== null) {
+    document.getElementById('update-menu').remove();
+  }
   const wrapper = document.getElementById('wrapper');
   const home = document.getElementById('home');
   const menu = document.getElementById('menu');
@@ -153,7 +156,6 @@ const displayMenuPage = () => {
       showBtns(updateMenuBtn);
     }
   });
-
   header.appendChild(updateMenuBtn);
   wrapper.append(h2Appitizers, divAppetizerContainer, h2Noodles, divNoodleContainer, h2Drinks,
     divDrinkContainer);
@@ -161,23 +163,28 @@ const displayMenuPage = () => {
   createAddItemBtn();
   
   if(arrAppitizers.length === 0) {
-    createAndAddApp("Dumplings", 6, "Tasty Dumplings");
-    createAndAddApp("Fried Rice", 3, "Tasty Fried Rice");
+    createAndAddApp("Dumplings", 6, "Steamed pork dumplings with herbs.");
+    createAndAddApp("Fried Rice", 3, "Vegetable fried rice.");
   } else {
     arrAppitizers.forEach(item => {
       createAppitizer(item.title, item.price, item.description, arrAppitizers.indexOf(item));
     });
   }
   if(arrNoodles.length === 0) {
-    createAndAddNoodle("Soba Noodles", 9, "Tasty Soba");
-    createAndAddNoodle("Ramen Noodles", 9, "Tasty Ramen");
+    createAndAddNoodle("Beef Soba Noodles", 9, "Cold soba noodles in a beef broth with thin slices of beef\
+                        fishcake, cucumber slices, and a soft boiled egg.");
+    createAndAddNoodle("Pork Ramen Noodles", 9, "Pork based ramen with slices of chashu pork and soft boiled egg.\
+                        Regular or spicy broth.");
+    createAndAddNoodle("Beef Udon Noodles", 9, "Udon noodles in beef broth, with chunks of beef, fishcake, \
+                        and thinly sliced negi.");
   } else {
     arrNoodles.forEach(item => {
       createNoodle(item.title, item.price, item.description, arrNoodles.indexOf(item));
     });
   }
   if(arrDrinks.length === 0) {
-    createAndAddDrink("Sake", 5, "Booze");
+    createAndAddDrink("Sake", 5, "Japanese imported sake.");
+    createAndAddDrink("Japanese Beer", 5, "Selection of Japanese imported beer.");
   } else {
     arrDrinks.forEach(item => {
       createDrink(item.title, item.price, item.description, arrDrinks.indexOf(item));
